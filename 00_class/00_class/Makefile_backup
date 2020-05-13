@@ -1,0 +1,24 @@
+#这里需要根据自己在linux上配置的opencv路径修改
+INCLUDES = -I/usr/local/include/opencv4
+LIBS = -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_calib3d -lopencv_videoio
+LIBDIRS = -L/usr/local/lib
+ 
+OPT = -O3 -Wno-deprecated
+ 
+CC=g++
+ 
+.PHONY: all clean
+ 
+OBJS= main.o
+ 
+clean:
+	rm -f *.o *~ main
+ 
+all:test2
+	echo all:make complete
+ 
+%.o:%.cpp
+	$(CC) -c $(INCLUDES) $+ $(OPT)
+ 
+main:$(OBJS)
+	$(CC) $(LIBDIRS) $(LIBS) -o $@ $+ $(OPT)
